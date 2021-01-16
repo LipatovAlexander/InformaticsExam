@@ -97,5 +97,23 @@ namespace Tasks
 
             return builder.ToString();
         }
+
+        public bool Task812A(string text)
+        {
+            char[] word = { 'o', 'n', 'e' };
+            int countOfMatch = 0;
+            foreach (char c in text)
+            {
+                if (c == word[countOfMatch])
+                    countOfMatch++;
+                else
+                    countOfMatch = 0;
+
+                if (countOfMatch == 3)
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

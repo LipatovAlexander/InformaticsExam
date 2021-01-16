@@ -51,5 +51,13 @@ namespace Tests
         {
             Assert.AreEqual(expectedResult, _tasks802821.Task809(n));
         }
+
+        [TestCase("abcd+-one", true)]
+        [TestCase("abconde", false)]
+        [TestCase("one", true)]
+        public void Test812A(string text, bool expectedResult)
+        {
+            Assert.AreEqual(expectedResult, _tasks802821.Task812A(text));
+        }
     }
 }

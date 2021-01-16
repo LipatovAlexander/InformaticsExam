@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Text;
-
+using System.Text; 
 
 namespace Tasks
 {
@@ -36,6 +35,27 @@ namespace Tasks
                     return true;
             }
             return false;
+        }
+
+        public string Task804A(string text)
+        {
+            string alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+            int indexOfStar = text.IndexOf('*');
+            if (indexOfStar == -1)
+                return text;
+
+            StringBuilder newText = new StringBuilder();
+            for (int i = 0; i < indexOfStar; i++)
+            {
+                if (alphabet.IndexOf(text[i]) > -1)
+                    newText.Append('3');
+                else
+                    newText.Append(text[i]);
+            }
+            newText.Append(text.Substring(indexOfStar));
+
+            return newText.ToString();
         }
     }
 }

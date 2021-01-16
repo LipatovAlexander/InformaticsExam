@@ -57,5 +57,27 @@ namespace Tasks
 
             return newText.ToString();
         }
+
+        public string Task805(string text)
+        {
+            char[] alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
+
+            int firstLetterIndex = text.IndexOfAny(alphabet);
+            if (firstLetterIndex == -1)
+                return text;
+            int lengthOfFirstLetterGroup = 0;
+            for (int i = firstLetterIndex; i < text.Length; i++)
+            {
+                if (Array.IndexOf(alphabet, text[i]) > -1)
+                    lengthOfFirstLetterGroup++;
+                else
+                    break;
+            }
+            StringBuilder newText = new StringBuilder();
+            newText.Append(text.Substring(0, firstLetterIndex + lengthOfFirstLetterGroup));
+            newText.Append(new String('.', text.Length - newText.Length));
+
+            return newText.ToString();
+        }
     }
 }

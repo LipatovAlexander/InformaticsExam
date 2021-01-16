@@ -27,5 +27,15 @@ namespace Tasks
 
             return maxCount;
         }
+
+        public bool Task803(string text)
+        {
+            foreach (char c in text)
+            {
+                if (!(char.IsLetter(c) || c.Equals(' ')))
+                    return true;
+            }
+            return false;
+        }
     }
 }

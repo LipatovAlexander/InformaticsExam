@@ -20,5 +20,12 @@ namespace Tests
         {
             Assert.AreEqual(expectedResult, _tasks802821.Task802(text));
         }
+
+        [TestCase("abcd  sdfsf", false)]
+        [TestCase("abcd 3 sdfsf", true)]
+        public void Test803(string text, bool expectedResutl)
+        {
+            Assert.AreEqual(expectedResutl, _tasks802821.Task803(text));
+        }
     }
 }

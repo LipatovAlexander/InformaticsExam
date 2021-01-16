@@ -42,5 +42,14 @@ namespace Tests
         {
             Assert.AreEqual(expectedResult, _tasks802821.Task805(text));
         }
+
+        [TestCase(1234, "1 234")]
+        [TestCase(123, "123")]
+        [TestCase(12345, "12 345")]
+        [TestCase(123456, "123 456")]
+        public void Test809(int n, string expectedResult)
+        {
+            Assert.AreEqual(expectedResult, _tasks802821.Task809(n));
+        }
     }
 }

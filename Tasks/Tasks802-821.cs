@@ -79,5 +79,23 @@ namespace Tasks
 
             return newText.ToString();
         }
+
+        public string Task809(int n)
+        {
+            StringBuilder builder = new StringBuilder();
+            string str = n.ToString();
+            int startCount = str.Length % 3;
+            builder.Append(str.Substring(0, startCount));
+            int i = startCount;
+            while (i < str.Length)
+            {
+                if (i != 0) // когда все цифры делятся на группы по 3 пробел вначале не нужен
+                    builder.Append(' ');
+                builder.Append(str.Substring(i, 3));
+                i += 3;
+            }
+
+            return builder.ToString();
+        }
     }
 }

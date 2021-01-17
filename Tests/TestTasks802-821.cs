@@ -59,5 +59,83 @@ namespace Tests
         {
             Assert.AreEqual(expectedResult, _tasks802821.Task812A(text));
         }
+
+        [TestCase("abc12+-ab1++", false)]
+        public void Test812B(string text, bool expectedResult)
+        {
+            Assert.AreEqual(expectedResult, _tasks802821.Task812B(text));
+        }
+
+        [TestCase("abc12+-*bcd", "abc12123bcd")]
+        [TestCase("abc12+-=", "abc12+-=")]
+        [TestCase("+-=abc", "+-=abc")]
+        [TestCase("abc+-*a", "abc123a")]
+        [TestCase("a+-*b", "a123b")]
+        public void Test812C(string text, string expectedResult)
+        {
+            Assert.AreEqual(expectedResult, _tasks802821.Task812C(text));
+        }
+
+        [TestCase("fac+-ac+-*fff123ffffff", 4)]
+        [TestCase("a12bc34f", 1)]
+        [TestCase("a12bc23a+f", 0)]
+        public void Test812D(string text, int expectedResult)
+        {
+            Assert.AreEqual(expectedResult, _tasks802821.Task812D(text));
+        }
+
+        [TestCase("a", 1)]
+        [TestCase("aba11a", 2)]
+        [TestCase("aba11aba", 2)]
+        [TestCase("a1a1a1a", 4)]
+        [TestCase("1a1aba1", 2)]
+        [TestCase("", 0)]
+        [TestCase("ab", 0)]
+        [TestCase("aba", 1)]
+        public void Test812E(string text, int expectedResult)
+        {
+            Assert.AreEqual(expectedResult, _tasks802821.Task812E(text));
+        }
+
+        [TestCase("a", new string[] {})]
+        [TestCase("aa", new[] { "aa"})]
+        [TestCase("aa1aa", new[] { "aa", "aa"})]
+        [TestCase("", new string[] { })]
+        public void Test812F(string text, string[] expectedResult)
+        {
+            Assert.IsTrue(IsEqualArrays(expectedResult, _tasks802821.Task812F(text)));
+        }
+
+        [TestCase("1", "1")]
+        [TestCase("1a2", "1")]
+        [TestCase("1a12", "12")]
+        [TestCase("12a1", "12")]
+        [TestCase("123", "123")]
+        public void Test812G(string text, string expectedResult)
+        {
+            Assert.AreEqual(expectedResult, _tasks802821.Task812G(text));
+        }
+
+        [TestCase("123adfsb+-*", "123adfsb+-*")]
+        [TestCase("a+-1234", "a+-1234")]
+        [TestCase("a1234+123adsf", "a****+123adsf")]
+        [TestCase("a1", "a*")]
+        [TestCase("a111", "a***")]
+        public void Test813(string text, string expectedResult)
+        {
+            Assert.AreEqual(expectedResult, _tasks802821.Task813(text));
+        }
+
+        bool IsEqualArrays(string[] first, string[] second)
+        {
+            if (first.Length != second.Length)
+                return false;
+            for (int i = 0; i < first.Length; i++)
+            {
+                if (first[i] != second[i])
+                    return false;
+            }
+            return true;
+        }
     }
 }

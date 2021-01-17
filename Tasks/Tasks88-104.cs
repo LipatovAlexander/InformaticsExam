@@ -310,14 +310,15 @@ namespace Tasks
 
         public double Task101(double a, double x, double eps)
         {
-            double yi1 = a;
-            double yi = 0.5 * (yi1 + x / yi1);
-            while (Math.Abs(yi * yi - yi1 * yi1) >= eps)
+            double y1;
+            double y = a;
+            do
             {
-                yi1 = yi;
-                yi = 0.5 * (yi1 + x / yi1);
-            }
-            return yi;
+                y1 = y;
+                y = 0.5 * (y1 + x / y1);
+            } while (Math.Abs(y * y - y1 * y1) >= eps);
+
+            return y;
         }
 
         public double Task102()
@@ -335,35 +336,40 @@ namespace Tasks
         }
         public double Task103(double eps)
         {
-            double yi1 = 0;
-            double yi = (yi1 + 1) / (yi1 + 2);
-            while (Math.Abs(yi1 - yi) > eps)
+            double y1;
+            double y = 0;
+            do
             {
-                yi1 = yi;
-                yi = (yi1 + 1) / (yi1 + 2);
-            }
+                y1 = y;
+                y = (y1 + 1) / (y1 + 2);
+            } while (y - y1 >= eps);
 
-            return yi;
+            return y;
         }
 
         public (double, double) Task104(double a)
         {
-            var xi1 = a <= 1
-                          ? Math.Min(2 * a, 0.95)
-                          : a < 25
-                              ? a / 5.0
-                              : a / 25.0;
-            var eps = 0.8 * 1e-6 / a;
-            var diff = (a - xi1 * xi1 * xi1 * xi1 * xi1);
-            var product = 5 * xi1 * xi1 * xi1 * xi1;
-            while (Math.Abs( diff / product) >= eps)
+            double x1;
+            double x;
+            if (a <= 1)
             {
-                xi1 = (4 * xi1 * xi1 * xi1 * xi1 * xi1 + a) / product;
-                diff = (a - xi1 * xi1 * xi1 * xi1 * xi1);
-                product = (5 * xi1 * xi1 * xi1 * xi1);
+                x = Math.Min(2 * a, 0.95);
+            }
+            else if (a > 1 && a < 25)
+            {
+                x = a / 5;
+            }
+            else
+            {
+                x = a / 25;
             }
 
-            return (xi1, diff);
+            do
+            {
+                x1 = x;
+                x = 0.8 * x1 + a / (5 * x1 * x1 * x1 * x1);
+            } while (1.25 * a * Math.Abs(x - x1) >= 0.000001);
+            return (x1, a - x1 * x1 * x1 * x1 * x1);
         }
     }
 }

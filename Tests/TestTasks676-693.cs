@@ -82,6 +82,26 @@ namespace Tests
         }
 
         [Test]
+        public void Test677B()
+        {
+            double[,] matrixA = new double[,]
+            {
+                {1, 2, 3 },
+                {4, 5, 6 },
+                {7, 8, 9 }
+            };
+
+            double[,] matrixB =
+            {
+                {6, 5, 3 },
+                {21, 16, 9 },
+                {45, 33, 18 }
+            };
+
+            Assert.IsTrue(IsEqualMatrixs(_tasks676693.Task677B(matrixA), matrixB));
+        }
+
+        [Test]
         public void Test678()
         {
             double[,] matrix = new double[,]

@@ -69,6 +69,27 @@ namespace Tasks
             return matrixB;
         }
 
+        public double[,] Task677B(double[,] matrixA)
+        {
+            int n = matrixA.GetLength(0);
+            double[,] matrixB = new double[n, n];
+            matrixB[0, n - 1] = matrixA[0, n - 1];
+            for (int i = 1; i < n; i++)
+            {
+                matrixB[0, n - i - 1] = matrixA[0, n - i - 1] + matrixB[0, n - i];
+                matrixB[i, n - 1] = matrixA[i, n - 1] + matrixB[i - 1, n - 1];
+            }
+            for (int i = 1; i < n; i++)
+            {
+                for (int j = n - 2; j >= 0; j--)
+                {
+                    matrixB[i, j] = matrixA[i, j] + matrixB[i - 1, j] + matrixB[i, j + 1] - matrixB[i - 1, j + 1];
+                }
+            }
+
+            return matrixB;
+        }
+
         public double[,] Task678(double[,] matrix)
         {
             int n = matrix.GetLength(0);
@@ -168,6 +189,25 @@ namespace Tasks
             return max;
         }
 
+        public double Task692B(double[,] matrix)
+        {
+            double max = double.MinValue;
+            int n = matrix.GetLength(0);
+
+            for (int i = n-1; i >= 0; i--)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    if (matrix[i, j] > max)
+                    {
+                        max = matrix[i, j];
+                    }
+                }
+            }
+
+            return max;
+        }
+
         public double Task692C(double[,] matrix)
         {
             double max = double.MinValue;
@@ -180,6 +220,25 @@ namespace Tasks
                 {
                     if (matrix[i, j] > max)
                         max = matrix[i, j];
+                }
+            }
+            return max;
+        }
+
+        public double Task692D(double[,] matrix)
+        {
+            double max = double.MinValue;
+            int n = matrix.GetLength(0);
+            int middle = n / 2;
+
+            for (int i = n-1; i >= middle; i--)
+            {
+                for (int j = n - i - 1; j <= i; i++)
+                {
+                    if (matrix[i, j] > max)
+                    {
+                        max = matrix[i, j];
+                    }
                 }
             }
             return max;

@@ -95,5 +95,62 @@ namespace Tasks
             }
             return sum;
         }
+
+        public double Task117A(int n)
+        {
+            double product = 1;
+            for (int i = 2; i <= 2*n; i+=2)
+            {
+                product *= (double)(i - 1) / i;
+            }
+            return product;
+        }
+
+        public double Task117B(int n)
+        {
+            double product = 1;
+            int i = 1;
+            double j = 1;
+            while (i <= n)
+            {
+                product *= j / i;
+                i++;
+                j += 2;
+            }
+            return product;
+        }
+
+        public double Task119A(double epsilon)
+        {
+            double sum = 0;
+            double i = 1;
+            double nextNum = 1;
+            do
+            {
+                sum += nextNum;
+                i++;
+                nextNum = 1 / (i * i);
+            } while (nextNum >= epsilon);
+
+            return sum;
+        }
+
+        public double Task119C(double epsilon)
+        {
+            double sum = 0;
+            double i = 1;
+            double nextNum = -1;
+            double fact = 1;
+            do
+            {
+                sum += nextNum;
+                i++;
+                fact *= i;
+                int sign = i % 2 == 0 ? 1 : -1;
+                nextNum = sign / fact;
+            } while (nextNum < epsilon);
+
+            return sum;
+        }
     }
 }

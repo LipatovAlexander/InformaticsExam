@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text; 
 
 namespace Tasks
@@ -114,6 +115,210 @@ namespace Tasks
             }
 
             return false;
+        }
+
+        bool IsSign(char c)
+        {
+            return c == '+' || c == '-' || c == '*';
+        }
+
+        public bool Task812B(string text)
+        {
+            int point = -1;
+            int newPoint;
+            int[] counts = { 0, 0, 0 };
+
+            foreach (char c in text)
+            {
+                if (char.IsLetter(c))
+                {
+                    newPoint = 0;
+                }
+                else if (char.IsDigit(c))
+                {
+                    newPoint = 1;
+                }
+                else
+                {
+                    newPoint = 2;
+                }
+                if (newPoint != point)
+                {
+                    counts[newPoint]++;
+                    point = newPoint;
+                }
+            }
+
+            return counts[0] > counts[2];
+        }
+
+        public string Task812C(string text)
+        {
+            bool firstGroup = false;
+            bool secondGroup = false;
+
+            int endOfFirstGroup = 0;
+            int startOfSecondGroup = 0;
+
+            for (int i = 0; i < text.Length - 1; i++)
+            {
+                char current = text[i];
+                char next = text[i + 1];
+
+                if (!firstGroup && char.IsLetter(current) && !char.IsLetter(next))
+                {
+                    firstGroup = true;
+                    endOfFirstGroup = i;
+                }
+                else if (firstGroup && !char.IsLetter(current) && char.IsLetter(next))
+                {
+                    secondGroup = true;
+                    startOfSecondGroup = i + 1;
+                }
+            }
+
+            if (!secondGroup)
+                return text;
+            
+            StringBuilder builder = new StringBuilder(text);
+            
+            builder.Replace('+', '1', endOfFirstGroup + 1, startOfSecondGroup - endOfFirstGroup - 1);
+            builder.Replace('-', '2', endOfFirstGroup + 1, startOfSecondGroup - endOfFirstGroup - 1);
+            builder.Replace('*', '3', endOfFirstGroup + 1, startOfSecondGroup - endOfFirstGroup - 1);
+
+            return builder.ToString();
+        }
+
+        public int Task812D(string text)
+        {
+            const char searchLetter = 'f';
+            int countOfMatches = 0;
+            int countOfLetterGroups = 0;
+
+            for (int i = 0; i < text.Length - 1; i++)
+            {
+                char current = text[i];
+                char next = text[i + 1];
+                if (current == searchLetter)
+                    countOfMatches++;
+                if (char.IsLetter(current) && !char.IsLetter(next))
+                    countOfLetterGroups++;
+                if (countOfLetterGroups == 3)
+                    break;
+            }
+
+            if (countOfLetterGroups < 3 && text[text.Length - 1] == searchLetter)
+                countOfMatches++;
+
+            return countOfMatches;
+        }
+
+        public int Task812E(string text)
+        {
+            int count = 0;
+            char first;
+            first = text.Length > 0 ? text[0] : '.';
+
+            for (int i = 0; i < text.Length - 1; i++)
+            {
+                char current = text[i];
+                char next = text[i + 1];
+                if (!char.IsLetter(current) && char.IsLetter(next))
+                    first = next;
+                if (char.IsLetter(current) && !char.IsLetter(next) && current == first)
+                    count++;
+            }
+
+            char last = text.Length > 0 ? text[text.Length - 1] : ',';
+            if (char.IsLetter(last) && last == first)
+                count++;
+
+            return count;
+        }
+
+        public string[] Task812F(string text)
+        {
+            List<string> words = new List<string>();
+            StringBuilder builder = new StringBuilder();
+            int count = 0;
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                char c = text[i];
+                if (char.IsLetter(c))
+                {
+                    builder.Append(c);
+                    if (c == 'a')
+                        count++;
+                }
+                else if (count >= 2)
+                {
+                    words.Add(builder.ToString());
+                    builder.Clear();
+                    count = 0;
+                }
+            }
+
+            if (count >= 2)
+                words.Add(builder.ToString());
+
+            return words.ToArray();
+        }
+
+        public string Task812G(string text)
+        {
+            StringBuilder builder = new StringBuilder();
+            string result = "";
+            foreach (char c in text)
+            {
+                if (char.IsDigit(c))
+                {
+                    builder.Append(c);
+                }
+                else
+                {
+                    if (builder.Length > result.Length)
+                    {
+                        result = builder.ToString();
+                    }
+                    builder.Clear();
+                }
+            }
+            if (builder.Length > result.Length)
+            {
+                result = builder.ToString();
+            }
+
+            return result != "" ? result : null;
+        }
+
+        bool IsSmallLatinLetter(char c)
+        {
+            const string alphabet = "abcdefghijklmnopqrstuvwxyz";
+            return alphabet.Contains(c);
+        }
+
+        public string Task813(string text)
+        {
+            if (!IsSmallLatinLetter(text[0]))
+                return text;
+
+            int startDigits = 1;
+            while (startDigits < text.Length && !char.IsDigit(text[startDigits]))
+            {
+                startDigits++;
+            }
+            if (startDigits == text.Length || !IsSmallLatinLetter(text[startDigits - 1]))
+            {
+                return text;
+            }
+
+            StringBuilder builder = new StringBuilder(text);
+            for (int i = startDigits; i < text.Length && char.IsDigit(text[i]); i++)
+            {
+                builder[i] = '*';
+            }
+            return builder.ToString();
         }
     }
 }
